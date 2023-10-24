@@ -1,0 +1,14 @@
+---
+interface Props {
+	title: string;
+	body: string;
+	href: string;
+}
+import { Button } from "@/components/ui/button";
+const { href, title, body } = Astro.props;
+---
+
+<li class="list-none flex bg-[#23262d] rounded shadow-sm p-2">
+	<Button variant="default">{title}</Button>
+</li>
+

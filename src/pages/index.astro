@@ -1,0 +1,63 @@
+---
+import { DataTable, ColumnDefinition } from "@/components/ui/data-table";
+import "@/styles/globals.css";
+
+import Layout from "../layouts/Layout.astro";
+
+interface Profile {
+  gender: string;
+  name: {
+    title: string;
+    first: string;
+    last: string;
+  };
+}
+
+interface Post {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
+const columns: ColumnDefinition<Post,unknown>[] = [
+	{
+    accessorKey: "id",
+    header: "ID",
+  },
+  {
+    accessorKey: "userId",
+    header: "UserId",
+  },
+  {
+    accessorKey: "title",
+    header: "Title",
+  },
+  {
+    accessorKey: "body",
+    header: "Description",
+  },
+];
+const profileResponse = await fetch("https://randomuser.me/api/");
+const postsResponse = await fetch("https://jsonplaceholder.typicode.com/posts");
+const postData = (await postsResponse
+  .json()
+  .then((response) => (response as any[]).splice(0, 5))) as Post[];
+const profileData = await profileResponse.json();
+const myUserProfile = profileData.results[0] as Profile;
+---
+
+<Layout title="Welcome to Astro.">
+  <main class="container flex-col gap-2 h-full">
+    <h1 class="text-4xl text-white text-right">
+      Welcome, {myUserProfile.name.title}&nbsp;{myUserProfile.name.first}
+    </h1>
+    <div class="">
+
+      <DataTable columns={columns} data={postData} />
+    </div>
+  </main>
+</Layout>
+
+<style>
+  
+</style>
