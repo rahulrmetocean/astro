@@ -1,4 +1,4 @@
-# Astro Starter Kit: Basics
+# Astro plus Shadcn and tailwind with react components and some REST API calls
 
 ```sh
 npm create astro@latest -- --template basics
